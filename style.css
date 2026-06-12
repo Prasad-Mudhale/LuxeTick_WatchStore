@@ -9,8 +9,9 @@ body {
 
 .hero-section {
     position: relative;
-    height: 90vh; 
+    height: 90vh; /* Keeps the hero section at 90% of the viewport height */
     width: 100%;
+    overflow: hidden; /* Prevents unwanted horizontal or vertical scrolling */
 }
 
 .navbar {
@@ -32,7 +33,6 @@ body {
     margin: 0;
     font-size: 32px;
     transition: color 0.3s;
-    /* text-shadow: 5px 5px 5px 5px ; */
 }
 
 .navbar .logo:hover {
@@ -65,11 +65,11 @@ body {
     color: #05f270;
 }
 
+/* --- RESPONSIVE SLIDER FIXES --- */
+
 .slider-container {
     width: 100%;
-    /* height: 111%;  */
-        height: 111%; 
-
+    height: 100%; /* Changed from 111% to match the parent container perfectly */
     overflow: hidden;
     position: relative;
 }
@@ -77,14 +77,14 @@ body {
 .slider {
     display: flex;
     width: 100%;
-    height: 90%;
+    height: 100%; /* Changed from 90% to match container */
     transition: transform 0.5s ease-in-out;
 }
 
 .slide {
     width: 100%;
-    height: 111%; 
-    object-fit: cover; 
+    height: 100%; /* Changed from 111% to match the slider track */
+    object-fit: cover; /* Keeps images perfectly cropped without distortion */
     flex-shrink: 0;
 }
 
@@ -114,45 +114,76 @@ body {
     background: rgba(0, 0, 0, 0.8);
 }
 
+/* --- RESPONSIVE HERO CONTENT FIXES --- */
+
 .hero-content {
     position: absolute;
     top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%);
-    text-align: center;
+    left: 10%; /* Positions the content box near the left edge instead of the center */
+    transform: translateY(-50%); /* Only centers vertically now, not horizontally */
+    text-align: left; /* Aligns the text to the left */
     color: white;
-    width: 80%;
+    width: 40%; /* Restricts the width so text wraps nicely and stays on the left side */
     z-index: 4;
     pointer-events: none; 
 }
 
 .hero-content h2 {
-    font-size: 50px;
+    font-size: clamp(28px, 5vw, 50px); /* Keeps text responsive */
     margin: 0;
-    margin-left: -70%;
     background: white;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
+/* --- MOBILE ADJUSTMENT --- */
+@media (max-width: 768px) {
+    .hero-content {
+        left: 5%; /* Brings text slightly closer to the edge on mobile */
+        width: 80%; /* Gives the text more room to breathe on small screens */
+    }
+}
+
+/* --- MEDIA QUERY FOR MOBILE DEVICES (Screens under 768px) --- */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px; /* Reduces spacing on small screens */
+    }
+
+    .navbar .logo {
+        font-size: 24px; /* Shrinks logo */
+    }
+
+    /* Optional: Hides regular nav links on mobile if you plan to build a hamburger menu */
+    .navbar .nav-links {
+        display: none; 
+    }
+
+    .buttons button {
+        padding: 10px 15px; /* Makes navigation arrows smaller */
+        font-size: 18px;
+    }
+}
 .cards {
     display: flex;
     justify-content: center;
     gap: 70px;
     flex-wrap: wrap;
-    margin-top: 10%;
-    margin-left: 10%;
-    /* margin: 50px auto; */
+    margin: 50px auto;
     max-width: 1200px;
-    /* width: 1000px; */
+    width: 90%;
     border-radius: 20px;
     box-shadow: 5px 5px 5px 2px rgb(35, 62, 50);
     background-color: rgba(255, 255, 255, 0.05);
-    padding: 30px 0;
+    padding: 30px;
+    box-sizing: border-box; 
 }
 
 .card {
+    position: relative;
     text-align: center;
+    width: 220px; 
+    box-sizing: border-box;
 }
 
 .card img {
@@ -176,12 +207,6 @@ body {
     color: #1ce37f;
 }
 
-
-.card {
-    position: relative;
-    text-align: center;
-}
-
 .heart-container {
     position: absolute;
     top: 15px;
@@ -197,6 +222,55 @@ body {
 
 .card-heart:hover {
     transform: scale(1.2);
+}
+
+@media screen and (max-width: 768px) {
+    .cards {
+        gap: 30px;
+        margin: 30px auto; 
+        padding: 20px;
+    }
+
+    .card {
+        width: 180px; 
+    }
+
+    .card img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .card h2 {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .cards {
+        flex-direction: column;
+        align-items: center;
+        margin: 20px auto;
+        gap: 25px;
+        width: 95%; 
+    }
+
+    .card {
+        width: 100%;
+        max-width: 280px; 
+    }
+
+    .card img {
+        width: 140px; 
+        height: 140px;
+    }
+
+    .card h2 {
+        font-size: 18px;
+    }
+
+    .card p {
+        font-size: 14px;
+    }
 }
 
 
